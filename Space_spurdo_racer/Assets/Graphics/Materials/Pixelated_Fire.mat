@@ -68,7 +68,7 @@ Material:
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _Fire_Power: 1
-    - _Fire_Speed: -1.5
+    - _Fire_Speed: -1
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
