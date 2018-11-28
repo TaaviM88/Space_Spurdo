@@ -4,7 +4,12 @@ using UnityEngine;
 
 public class CylinderScript : MonoBehaviour
 {
-    public GameObject player;
+    public enum direction { Up, Down, Forward, Right, Left, Back };
+
+    public direction changeDirection;
+
+    //public GameObject player;
+    Transform player;
     public bool firstOne = false;
     public int towerIndex = 20;
     // Start is called before the first frame update
@@ -16,7 +21,8 @@ public class CylinderScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (player.transform.position.z > (transform.position.z + 30))
+        player = GameManager.Instance.player.transform;
+        if (player.transform.position.z > (transform.position.z + 20))
         {
             MoveCylinder();
         }
@@ -24,10 +30,15 @@ public class CylinderScript : MonoBehaviour
 
     public void MoveCylinder()
     {
-
         transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + towerIndex);
         transform.Rotate(new Vector3(transform.rotation.x + 180, transform.rotation.y, 0));
-
-
+        /*
+        switch (direction)
+        {
+            case direction.Forward:
+                transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + towerIndex);
+                transform.Rotate(new Vector3(transform.rotation.x + 180, transform.rotation.y, 0));
+                break;
+        }*/
     }
 }
