@@ -31,7 +31,7 @@ public class CylinderScript : MonoBehaviour
     public void MoveCylinder()
     {
         transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + towerIndex);
-        transform.Rotate(new Vector3(transform.rotation.x + 180, transform.rotation.y, 0));
+        //transform.Rotate(new Vector3(transform.rotation.x + 180, transform.rotation.y, 0));
         /*
         switch (direction)
         {

@@ -10,6 +10,8 @@ public class PlayerMovement : MonoBehaviour
     public float forwardSpeed = -1f;
     float playerPositionY;
     float maxSpeed = 10;
+    
+    
     Rigidbody _rb;
     // Start is called before the first frame update
     void Start()
@@ -28,7 +30,7 @@ public class PlayerMovement : MonoBehaviour
         {
             _rb.AddForce(Vector3.forward * verticalMove, ForceMode.Acceleration);
             //
-            _rb.velocity = Vector3.ClampMagnitude(_rb.velocity, maxSpeed);
+            _rb.velocity = Vector3.ClampMagnitude(_rb.velocity, maxSpeed);   
         }
 
         Debug.Log(_rb.velocity);
