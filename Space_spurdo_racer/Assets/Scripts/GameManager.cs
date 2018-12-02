@@ -6,6 +6,11 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
     public GameObject player;
+    bool isPlayerAlive;
+    bool isCounterOn;
+    public float counterTime = 3;
+    float currentCounter;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -15,11 +20,42 @@ public class GameManager : MonoBehaviour
         }
         else
             Instance = this;
+
+        if(player != null)
+        {
+            isPlayerAlive = true;
+        }
+        else
+        {
+            Debug.Log("Ei löytynyt" + player.name);
+        }
+
+        currentCounter = counterTime;
     }
 
-
+    public void Update()
+    {
+        if(isCounterOn)
+        {
+            if(currentCounter > 0)
+            {
+                currentCounter -= Time.deltaTime;
+            }
+            else
+            {
+                isCounterOn = false;
+            }
+            
+        }
+    }
     public void ResetScene()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);   
+    }
+
+    public void StartTimer()
+    {
+        currentCounter = counterTime;
+        isCounterOn = true;
     }
 }

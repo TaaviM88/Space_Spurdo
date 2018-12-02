@@ -7,4 +7,9 @@ public class waypoint : MonoBehaviour
     public enum direction {Up,Down, Forward, Right, Left, Back };
 
     public direction changeDirection;
+
+    public direction ReturnDirection()
+    {
+        return changeDirection;
+    }
 }
