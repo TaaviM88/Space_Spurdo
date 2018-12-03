@@ -6,10 +6,7 @@ public class Jump : MonoBehaviour
 {
     [Header("jump variables")]
     public float jumpSpeed = 8.0f;
-    public float gravity = 20.0f;
-    public float maxHeight = 20f;
-    public float fallMultiplayer = 0.5f;
-
+    public float multiplayJumpSpeed = 1;
     public float jumpTime = 3f;
     float countdown;
 
@@ -47,8 +44,7 @@ public class Jump : MonoBehaviour
             if(countdown <= 0.0f)
             {
                 countdown = jumpTime;
-                isLanding = true;
-
+                isLanding = true;          
             }
         }
 
@@ -102,5 +98,18 @@ public class Jump : MonoBehaviour
             }
         //moveDirection.y = moveDirection.y - (gravity * Time.deltaTime);
         */
+    }
+
+    public void MakeAJump()
+    {
+        if (!jumping && canJump)
+        {
+            currentYPosition = transform.position.y;
+            moveDirection.y = jumpSpeed;
+            jumping = true;
+            canJump = false;
+            isLanding = false;
+            Debug.Log("Hyppää PERKELE!");
+        }
     }
 }

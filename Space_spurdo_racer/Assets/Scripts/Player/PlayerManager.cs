@@ -9,10 +9,18 @@ public class PlayerManager : MonoBehaviour
     float countdown;
     bool iFramesCountdown;
     int playerCurrentLifes;
+    Jump jump;
     // Start is called before the first frame update
     void Start()
     {
         playerCurrentLifes = playerDefaultLifes;
+        jump = GetComponent<Jump>();
+        if (jump == null)
+        {
+            Debug.Log("Ei löydy Jump-scriptiä");
+        }
+
+        
     }
 
     // Update is called once per frame
@@ -49,6 +57,10 @@ public class PlayerManager : MonoBehaviour
             Debug.Log("Osuin");
             
         }
+
+        //Lisää hyppyri tagin tsekkaus
+        //Jos tag on hyppyri kutsu jump scriptin  MakeAJump-metodia
+
     }
 
     public int ReturnCurrentLifes()
