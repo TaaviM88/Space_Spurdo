@@ -60,6 +60,10 @@ public class PlayerManager : MonoBehaviour
 
         //Lisää hyppyri tagin tsekkaus
         //Jos tag on hyppyri kutsu jump scriptin  MakeAJump-metodia
+        if (collision.gameObject.tag == "Jumper")
+        {   
+            jump.MakeAJump();
+        }
 
     }
 
