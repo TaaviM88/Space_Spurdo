@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: d9c146c3d305ced4eb76dad53a045ad6
+guid: 9bc7745c809be954aba90608633625e6
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
@@ -8,7 +8,7 @@ ModelImporter:
     2100000: Road
     2300000: //RootNode
     3300000: //RootNode
-    4300000: Road.001
+    4300000: Road_30_up
   externalObjects: {}
   materials:
     importMaterials: 1
