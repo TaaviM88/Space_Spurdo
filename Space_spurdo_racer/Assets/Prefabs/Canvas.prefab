@@ -195,7 +195,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df1f60b24dfb07c4cb4c69633b3fe46f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speedometer: {fileID: 3574929081873539937}
+  image: {fileID: 0}
   objectToMeasure: {fileID: 0}
   maxVelocity: 10
 --- !u!1 &3574929082450955407
@@ -460,6 +460,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df1f60b24dfb07c4cb4c69633b3fe46f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speedometer: {fileID: 0}
+  image: {fileID: 0}
   objectToMeasure: {fileID: 0}
   maxVelocity: 10

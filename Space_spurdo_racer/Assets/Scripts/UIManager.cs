@@ -4,10 +4,10 @@ using TMPro;
 
 public class UIManager : MonoBehaviour {
 
-    private Image image;
-    public TMP_Text speedometer;
+    public Image image;
+    //public TMP_Text speedometer;
 
-    Rigidbody _rb;
+    //Rigidbody _rb;
     public Rigidbody objectToMeasure;
     
     public float maxVelocity = 10.0f;
@@ -18,7 +18,7 @@ public class UIManager : MonoBehaviour {
     void Start()
     {
         image = GetComponent<Image>();
-        _rb = GetComponent<Rigidbody>();
+        //_rb = GetComponent<Rigidbody>();
         
     }
 
@@ -28,6 +28,6 @@ public class UIManager : MonoBehaviour {
 
         image.fillAmount = objectToMeasure.velocity.magnitude / maxVelocity;
         
-        speedometer.text = string.Format("{0:0.00}", _rb.velocity.magnitude);
+        //speedometer.text = string.Format("{0:0.00}", _rb.velocity.magnitude);
     }
 }
