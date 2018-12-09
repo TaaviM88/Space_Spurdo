@@ -28,12 +28,13 @@ public class Jump : MonoBehaviour
         //Hypätään
         if (Input.GetButtonDown("Fire1") && !jumping && canJump)
         {
-            currentYPosition = transform.position.y;
-            moveDirection.y = jumpSpeed;
-            jumping = true;
-            canJump = false;
-            isLanding = false;
-            Debug.Log("Hyppää PERKELE!");
+            /* currentYPosition = transform.position.y;
+             moveDirection.y = jumpSpeed;
+             jumping = true;
+             canJump = false;
+             isLanding = false;*/
+
+            MakeAJump();
         }
 
 
@@ -50,9 +51,9 @@ public class Jump : MonoBehaviour
 
         if(jumping && isLanding)
         {
-            countdown -= Time.deltaTime;
+            
             transform.Translate(Vector3.forward * (-1 *moveDirection.y * Time.deltaTime), Space.Self);
-
+            countdown -= Time.deltaTime;
             if (countdown <= 0.0f)
             {
                 countdown = jumpTime;

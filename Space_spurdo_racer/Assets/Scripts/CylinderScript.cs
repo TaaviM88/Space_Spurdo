@@ -4,14 +4,15 @@ using UnityEngine;
 
 public class CylinderScript : MonoBehaviour
 {
-    public enum direction { Up, Down, Forward, Right, Left, Back };
+    public enum direction { Up, Down, Forward, Right, Left, Back, curved };
 
     public direction changeDirection;
 
     //public GameObject player;
     Transform player;
-    public bool firstOne = false;
+    //public bool firstOne = false;
     public int towerIndex = 20;
+    public float angle = 0;
     // Start is called before the first frame update
     void Start()
     {   
@@ -23,7 +24,7 @@ public class CylinderScript : MonoBehaviour
     {
         player = GameManager.Instance.player.transform;
         
-        if (player.transform.position.z > (transform.position.z + 20) || player.transform.position.y > (transform.position.y + 20))
+        if (player.transform.position.z > (transform.position.z + towerIndex)) //|| player.transform.position.y > (transform.position.y + 20))
         {
             MoveCylinder();
         }
@@ -41,10 +42,19 @@ public class CylinderScript : MonoBehaviour
                 //transform.Rotate(new Vector3(transform.rotation.x + 180, transform.rotation.y, 0));
                 break;
             case direction.Up:
-                transform.position = new Vector3(transform.position.x, transform.position.y + towerIndex, transform.position.z);
+                //transform.position = new Vector3(transform.position.x, transform.position.y + towerIndex, transform.position.z);
                 //transform.Rotate(new Vector3(transform.rotation.x + 180, transform.rotation.y, 0));
+                break;
+
+            case direction.curved:
+                transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + towerIndex);
                 break;
         }
 
+    }
+
+    public float ReturnAngleDegre()
+    {
+        return angle;
     }
 }

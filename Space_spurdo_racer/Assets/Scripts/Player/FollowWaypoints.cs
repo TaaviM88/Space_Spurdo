@@ -21,18 +21,23 @@ public class FollowWaypoints : MonoBehaviour
     {
         if (Time.timeScale != 0)
         {
-            if ((this.transform.position - waypoints[waypointsNumber].transform.position).sqrMagnitude < 0.5f)
+            if ((this.transform.position - waypoints[waypointsNumber].transform.position).sqrMagnitude < 0.05f)
             {
                 waypoint point = waypoints[waypointsNumber].GetComponent<waypoint>();
-                if (point.ReturnDirection() == waypoint.direction.Up)
+                float d = point.ReturnDegree();
+
+                /*if (point.ReturnDirection() == waypoint.direction.Up)
                 {
                     playerMovement.RotateShip(true);
                 }
                 else
-                    playerMovement.RotateShip(false);
+                    playerMovement.RotateShip(false);*/
+
 
                 GetNextIndex();
 
+                //kerrotaan pelaajalle edellisen waypointin rotaatio ja seuraavan waypointin sijainti
+                playerMovement.RotateShip(d, waypoints[waypointsNumber].transform.position);
             }
             
         }
@@ -44,7 +49,7 @@ public class FollowWaypoints : MonoBehaviour
         {
             if (loop == true && stop == false)
             {
-                waypointsNumber = -1;
+                waypointsNumber = 1;
             }
 
             else if (loop == true && stop == false)
@@ -63,8 +68,14 @@ public class FollowWaypoints : MonoBehaviour
         {
             direction = 1;
         }
-
-        waypointsNumber += direction;
+        int i = waypoints.Count;
+        if (waypointsNumber < i)
+        {
+            waypointsNumber += direction;
+        }
+        else
+            waypointsNumber = 0;
+        
 
     }
 

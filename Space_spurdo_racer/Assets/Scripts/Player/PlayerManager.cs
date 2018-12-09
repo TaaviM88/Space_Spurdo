@@ -15,12 +15,11 @@ public class PlayerManager : MonoBehaviour
     {
         playerCurrentLifes = playerDefaultLifes;
         jump = GetComponent<Jump>();
+
         if (jump == null)
         {
             Debug.Log("Ei löydy Jump-scriptiä");
-        }
-
-        
+        }  
     }
 
     // Update is called once per frame
@@ -41,7 +40,7 @@ public class PlayerManager : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        //Debug.Log("Osuin"); 
+
         if (collision.gameObject.tag == "Obstacle")
         {
             if (playerCurrentLifes >0 &&iFramesCountdown == false)
@@ -50,6 +49,7 @@ public class PlayerManager : MonoBehaviour
                 iFramesCountdown = true;
                 countdown = iFrames;
             }
+
             else
             {
                 ResetScene();

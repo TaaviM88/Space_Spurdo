@@ -11,37 +11,46 @@ public class PlayerMovement : MonoBehaviour
     public float forwardSpeed = -1f;
     public float boostSpeed = 2f;
     float maxSpeed = 10;
+    float normalMaxSpeed;
     float playerPositionY;
-    
-    [Header("Waypoints")]
-    /*public GameObject[] waypoints;
-    int destPoint = 0;
-    Vector3 nextDestination;
-    float maxDistance = 0.5f;
-    bool IsNear = false;*/
+    Vector3 nextWaypoint;
     Rigidbody _rb;
 
     // Start is called before the first frame update
     void Start()
     {
         _rb = GetComponent<Rigidbody>();
-        
+        normalMaxSpeed = maxSpeed;
         
         //GoToNextPoint();
-        Debug.Log(transform.localEulerAngles);
+        //Debug.Log(transform.localEulerAngles);
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
- 
+
         horizontalMove = Input.GetAxis("Horizontal") * rotateSpeed;
         verticalMove = Input.GetAxis("Vertical") * forwardSpeed;
         transform.Rotate(Vector3.forward, horizontalMove);
+        float multiplayerSpeed = 0.1f;
+        if (Input.GetButton("Fire2"))
+        {
+            //maxSpeed *= boostSpeed; 
+             multiplayerSpeed = boostSpeed;
+        }
+        else
+        {
+            multiplayerSpeed = 0.1f;
+        }
+
+        transform.position = Vector3.MoveTowards(transform.position, nextWaypoint, verticalMove *multiplayerSpeed);
 
         if (_rb.velocity.magnitude < maxSpeed)
         {
-            //Debug.Log(transform.localEulerAngles.x);
+            //_rb.AddForce(Vector3.forward * verticalMove, ForceMode.Acceleration);
+
+           /*
             if (transform.localEulerAngles.x == 270)
             {
                 _rb.AddForce(Vector3.up* verticalMove, ForceMode.Acceleration);
@@ -49,58 +58,69 @@ public class PlayerMovement : MonoBehaviour
             }
             else
             {
-                _rb.AddForce(Vector3.forward * verticalMove, ForceMode.Acceleration);
+                
             }
-            
-            _rb.velocity = Vector3.ClampMagnitude(_rb.velocity, maxSpeed);   
+            */
         }
+        else
+            _rb.velocity = Vector3.ClampMagnitude(_rb.velocity, maxSpeed);
 
         //Debug.Log((nextDestination - transform.position).sqrMagnitude + "Mitataan etäisyyttä");
 
-     //tsekkaillaan ollaanko lähellä seuraavaa listan objektin sijaintia
-     /*   float distance = Vector3.Distance(transform.localPosition, nextDestination);
-        Debug.Log(distance + "Etäisyys");
-        IsNear = distance <= maxDistance;
+        //tsekkaillaan ollaanko lähellä seuraavaa listan objektin sijaintia
+        /*   float distance = Vector3.Distance(transform.localPosition, nextDestination);
+           Debug.Log(distance + "Etäisyys");
+           IsNear = distance <= maxDistance;
 
-        if (IsNear)
-        {
-            Debug.Log("seuraava waypoint kiitos");
-            GoToNextPoint();
-            IsNear = false;
-        }
+           if (IsNear)
+           {
+               Debug.Log("seuraava waypoint kiitos");
+               GoToNextPoint();
+               IsNear = false;
+           }
 
-        */
+           */
         //Debug.Log(_rb.velocity);
-       //transform.Translate(Vector3.forward* verticalMove);
+        //transform.Translate(Vector3.forward* verticalMove);
 
     }
 
-   public void RotateShip(bool rotate)
+   public void RotateShip(float rotateDegree, Vector3 nextPointPosition)
     {
-        if (rotate)
-        {
-            Debug.Log("Rotate ship 270 degree");
+        
+        Debug.Log("Rotate ship " + rotateDegree + "degree");
+        transform.localEulerAngles = new Vector3(rotateDegree, transform.localEulerAngles.y, transform.localEulerAngles.z);
+        nextWaypoint = nextPointPosition;
 
-            if(transform.localEulerAngles.y < 270)
-            {
-                for(int i = 0; i < 270; i++)
-                {
-                    transform.localEulerAngles = new Vector3(i, transform.localEulerAngles.y, transform.localEulerAngles.z);
-                }
-                //transform.localEulerAngles = new Vector3(270, transform.localEulerAngles.y, transform.localEulerAngles.z);
-            }
-            
-            Vector3 v = _rb.velocity;
+        if(rotateDegree != 0)
+        {
+            /*Vector3 v = _rb.velocity;
             _rb.velocity = Vector3.zero;
-            _rb.velocity = new Vector3(v.x, v.z, v.y);
+            _rb.velocity = new Vector3(v.x, v.z, v.y);*/
+        }
+        
+
+        /* if(transform.localEulerAngles.y < rotateDegree)
+         {
+             for(int i = 0; i < rotateDegree; i++)
+             {
+                 transform.localEulerAngles = new Vector3(i, transform.localEulerAngles.y, transform.localEulerAngles.z);
+             }
+             //transform.localEulerAngles = new Vector3(270, transform.localEulerAngles.y, transform.localEulerAngles.z);
+         }
+
+        Vector3 v = _rb.velocity;
+        _rb.velocity = Vector3.zero;
+         _rb.velocity = new Vector3(v.x, v.z, v.y);
 
             Debug.Log("Käännetään alus");
+            
+        
 
-        }
-        else if (!rotate)
+        if (transform.localEulerAngles.y > rotateDegree)
         {
-            if (transform.localEulerAngles.y >= 270)
-                for (int i = 270; i < 1; i--)
+            if (transform.localEulerAngles.y >= rotateDegree)
+                for (int i = (int)rotateDegree; i < 1; i--)
             {
                 transform.localEulerAngles = new Vector3(i, transform.localEulerAngles.y, transform.localEulerAngles.z);
             }
@@ -115,37 +135,12 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             Debug.Log("Do nothing");
-        }
+        }*/
 
     }
 
-    //Method which makes us to go to next waypoint
-    /*void GoToNextPoint()
+    public void TurboBoost()
     {
-        if(waypoints.Length == 0)
-        {
-            return;
-        }
 
-        nextDestination = waypoints[destPoint].transform.position;
-        waypoint point = waypoints[destPoint].GetComponent<waypoint>();
-
-        if(point.ReturnDirection() == waypoint.direction.Up)
-        {
-            RotateShip(true);
-
-        }
-        else if(point.ReturnDirection() == waypoint.direction.Forward)
-        {
-            RotateShip(false);
-        }
-        else
-        {
-            Debug.Log("Do nothing");
-        }
-
-        destPoint = (destPoint + 1) % waypoints.Length;
-
-        Debug.Log(destPoint);
-    }*/
+    }
 }
