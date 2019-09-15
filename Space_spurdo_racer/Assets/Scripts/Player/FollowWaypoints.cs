@@ -68,6 +68,7 @@ public class FollowWaypoints : MonoBehaviour
         {
             direction = 1;
         }
+
         int i = waypoints.Count;
         if (waypointsNumber < i)
         {

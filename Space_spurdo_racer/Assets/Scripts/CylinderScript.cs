@@ -24,7 +24,7 @@ public class CylinderScript : MonoBehaviour
     {
         player = GameManager.Instance.player.transform;
         
-        if (player.transform.position.z > (transform.position.z + towerIndex)) //|| player.transform.position.y > (transform.position.y + 20))
+        if (player.transform.position.z > (transform.position.z + 20)) //|| player.transform.position.y > (transform.position.y + 20))
         {
             MoveCylinder();
         }
